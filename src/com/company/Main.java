@@ -10,49 +10,31 @@ import java.util.Arrays;
 
 public class Main {
     /*
-    2775
+    2839
 
-    a층의 b호 사람수 -> a-1층의 1~b호 사람합
-    k: 층. 0층부터 있음   /   n: 호. 1호부터 있음
-    0층의 i호에는 i명이 산다
-
+    N = 5*a + 3*b
+    a+b 값이 제일 작아지도록.
+    5의 배수가 될때까지 (N%5 =0일때까지) N에서 3을 빼준다. 빼주면서 b카운트 증가시키기
+    위의 반복문이 끝나면 a = (새로운N값)/5 해주고나서 출력하기.
      */
 
-    public static int howMany(int k, int n) {
-        int[] currentFloor = new int[n]; //현재 층. 이것을 기준으로 위에층 설정할것
-        int[] nextFloor = new int[n]; //다음 층.
-        nextFloor[0] = 1; //첫방에는 다들 1이므로 1 넣어주기
-        for(int i=0; i<n; i++)
-            currentFloor[i] = i+1; //1,2,3,.. n 값 넣어주기
-
-        for(int i=0; i<k; i++){ //층수만큼 돌릴거야
-            for(int j=0; j<n-1; j++){
-                //한 층에서 j, j+1번째 방의 차이는 바로밑에층의 j+1번째 방만큼이므로 아래와 같이 계산
-                nextFloor[j+1] = nextFloor[j] + currentFloor[j+1];
-            }
-            currentFloor = nextFloor; //방금 설정했던 nextFloor을 currentFloor로 설정해준다.
+    public static int SugerBags(int N){
+        int a=0, b=0;
+        while(N%5 != 0){
+            N -= 3;
+            if(N < 0) return -1;
+            b++;
         }
-
-        //위의 반복문이 모두 끝나면 currentFloor는 최상층이므로, 최상층의 마지막 방 인원수를 리턴.
-        return currentFloor[n-1];
+        a = N/5;
+        return a+b;
     }
 
     public static void main (String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
 
-        for(int i=0; i<T; i++){
-            int k = Integer.parseInt(br.readLine());
-            int n = Integer.parseInt(br.readLine());
-
-            System.out.println(howMany(k, n));
-        }
-
-
-
-
+        System.out.println(SugerBags(N));
     }
-
 
 }
