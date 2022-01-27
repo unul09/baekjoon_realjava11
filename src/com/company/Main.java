@@ -10,33 +10,41 @@ import java.util.StringTokenizer;
 
 public class Main {
     /*
-    1011
+    1978
 
-    y-x만큼 이동해줄거임
-    처음은 1광년, 그 다음값은 (전의이동거리) +- 1 범위. 정확히 이동해야함
-
-    구상
-    전의이동거리가 n일때, 남은 거리가 (n-1)보다 작다면 전의이동거리는 n이되어서는안됨!
+    n개의 수 중 소수 몇개인지 출력
      */
 
-    public static int dimensionMoverTimes(int D){
-        return 0;
+    public static int howManyPrimeNum(int[] nums){
+        int cnt = 0; //소수갯수세줄거임
+        for(int i=0; i<nums.length; i++){
+            if(isPrimeNum(nums[i])) cnt++;
+        }
+        return cnt;
 
+    }
+
+    public static boolean isPrimeNum(int n){ //해당숫자가 소수인지 참거짓 반환
+        if(n == 1) return false; //1이면 거짓
+        for(int i = 2; i <= Math.sqrt(n); i++){ //루트값까지 확인해주기(반복수줄이기)
+            if(n%i == 0) return false; //나누어지는 값이면 소수 아님
+        }
+        return true; //끝까지 살아남았으면 소수
     }
 
 
     public static void main (String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
 
-        for(int i=0; i<T; i++){
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+        int[] nums = new int[N];
 
-            System.out.println(dimensionMoverTimes(y-x));
-        }
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        for(int i=0; i<N; i++)
+            nums[i] = Integer.parseInt(st.nextToken());
+
+        System.out.println(howManyPrimeNum(nums));
 
     }
 
