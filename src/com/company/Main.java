@@ -10,18 +10,24 @@ import java.util.StringTokenizer;
 
 public class Main {
     /*
-    1978
+    2581
 
-    n개의 수 중 소수 몇개인지 출력
+    M이상 N이하의 자연수 중 소수인 것 골라서 총합, 최솟값 찾기
      */
 
-    public static int howManyPrimeNum(int[] nums){
-        int cnt = 0; //소수갯수세줄거임
+    public static int sumOfPrimeNum(int[] nums){ //소수 총합
+        int sum = 0; //총합
         for(int i=0; i<nums.length; i++){
-            if(isPrimeNum(nums[i])) cnt++;
+            if(isPrimeNum(nums[i])) sum += nums[i];
         }
-        return cnt;
+        return sum;
+    }
 
+    public static int smallestPrimeNum(int[] nums){ //소수 최솟값
+        for(int i=0; i<nums.length; i++){
+            if(isPrimeNum(nums[i])) return nums[i];
+        }
+        return -1;
     }
 
     public static boolean isPrimeNum(int n){ //해당숫자가 소수인지 참거짓 반환
@@ -36,15 +42,21 @@ public class Main {
     public static void main (String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int M = Integer.parseInt(br.readLine());
         int N = Integer.parseInt(br.readLine());
 
-        int[] nums = new int[N];
+        int[] nums = new int[N-M+1];
 
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        for(int i=0; i<N; i++)
-            nums[i] = Integer.parseInt(st.nextToken());
+        for(int i=0; i<nums.length; i++)
+            nums[i] = M+i;
 
-        System.out.println(howManyPrimeNum(nums));
+        //M이상 N이하의 자연수 중 소수가 없을 경우는 첫째 줄에 -1을 출력, 리턴하여 main 끝내기
+        if(sumOfPrimeNum(nums) == 0){
+            System.out.println(-1);
+            return;
+        }
+        System.out.println(sumOfPrimeNum(nums));
+        System.out.println(smallestPrimeNum(nums));
 
     }
 
