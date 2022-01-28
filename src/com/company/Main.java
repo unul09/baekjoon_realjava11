@@ -10,11 +10,19 @@ import java.util.StringTokenizer;
 
 public class Main {
     /*
-    1929
+    4948
 
-    1978, 2581과 유사. 시간 더 줄이려면 어떻게.? 나중에 다시 생각해보자.
-    M이상 N이하의 소수를 모두 출력
+    베르트랑 공준: (자연수 n) n보다 크고, 2n보다 작거나 같은 소수는 적어도 하나 존재
+    자연수 n이 주어졌을 때, n보다 크고, 2n보다 작거나 같은 소수의 개수를 구해라
      */
+
+    public static int howManyBtrang(int n){ //n보다 크고, 2n보다 작거나 같은 소수의 개수 리턴
+        int cnt = 0;
+        for(int i=n+1; i<=2*n; i++){
+            if(isPrimeNum(i)) cnt++;
+        }
+        return cnt;
+    }
 
 
     public static boolean isPrimeNum(int n){ //해당숫자가 소수인지 참거짓 반환
@@ -29,15 +37,10 @@ public class Main {
     public static void main (String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        int M = Integer.parseInt(st.nextToken());
-        int N = Integer.parseInt(st.nextToken());
-
-        int[] nums = new int[N-M+1];
-
-        for(int i=0; i<nums.length; i++){
-            nums[i] = M+i;
-            if(isPrimeNum(nums[i])) System.out.println(nums[i]);
+        while(true){
+            int n = Integer.parseInt(br.readLine());
+            if(n == 0) break;
+            System.out.println(howManyBtrang(n));
         }
 
     }
