@@ -10,43 +10,11 @@ import java.util.StringTokenizer;
 
 public class Main {
     /*
-    11653
+    1929
 
-    정수 N이 주어졌을 때, 소인수분해
-
-    소수 2부터 시작해서,
-    N%소수=0이라면 N 소수로 나눠주고 반복,
-    아니라면 다음 소수값(ex) 2 -> 3)으로 반복
-
-    시간초과 해결방안?
-    sb -> X
-    루트 N 할때마다 실행? -> O !!
-
-    Stranger's lab 참고해서 작성한 내용임. 나중에 스스로 다시 해결해볼 것.
-
+    1978, 2581과 유사. 시간 더 줄이려면 어떻게.? 나중에 다시 생각해보자.
+    M이상 N이하의 소수를 모두 출력
      */
-
-
-    public static void primeFactorization(int N){
-
-        /*
-        기본 틀: N = a*b 일때, 반드시 한 수는 루트N보다 작거나 같다
-        루트N에 대해 실행. 새롭게 나누어진 N값에 대해 계속 적용된다
-        9991의 경우, 97 구하고 103은 계산할 필요 없이 출력되기 때문에 시간 단축 굳.
-         */
-        for(int i=2; i<= Math.sqrt(N); i++){
-            while(N % i == 0){
-                System.out.println(i);
-                N /= i;
-            }
-        }
-
-        if(N!= 1){
-            System.out.println(N);
-        }
-
-    }
-
 
 
     public static boolean isPrimeNum(int n){ //해당숫자가 소수인지 참거짓 반환
@@ -61,9 +29,16 @@ public class Main {
     public static void main (String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int M = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
 
-        primeFactorization(N);
+        int[] nums = new int[N-M+1];
+
+        for(int i=0; i<nums.length; i++){
+            nums[i] = M+i;
+            if(isPrimeNum(nums[i])) System.out.println(nums[i]);
+        }
 
     }
 
